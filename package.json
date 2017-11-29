@@ -1,9 +1,9 @@
 {
   "name": "jest-typed-mock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/flow.js",
-  "bin": "cli.js"
+  "bin": "cli.js",
   "scripts": {
     "test": "npm run test:pick -- '_tests/**/*spec.js'",
     "test:pick": "BABEL_ENV=cjs mocha --compilers js:babel-core/register",
@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/theKashey/jest-typed-mock#readme",
   "peerDependencies": {
-    "flow-bin": "^0.50.0",
-    "typescript": "^2.6.0"
+    "flow-bin": "*",
+    "typescript": "*"
   },
   "devDependencies": {
     "@types/es6-promise": "^0.0.33",

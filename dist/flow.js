@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 let executeFlow = (() => {
   var _ref = _asyncToGenerator(function* () {
-    return yield (0, _projectorSpawn2.default)('../node_modules/.bin/flow', [fileName], {
+    return yield (0, _projectorSpawn2.default)((0, _findBin2.default)('../node_modules/.bin/flow'), [fileName], {
       cwd: __dirname
     });
   });
@@ -32,11 +32,15 @@ var _projectorSpawn = require('projector-spawn');
 
 var _projectorSpawn2 = _interopRequireDefault(_projectorSpawn);
 
+var _findBin = require('./findBin');
+
+var _findBin2 = _interopRequireDefault(_findBin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-const fileName = __dirname + '/jest-typed-mock.js.flow';
+const fileName = _path2.default.join(__dirname, 'jest-typed-mock.js.flow');
 
 const baseName = _path2.default.dirname(fileName);
 

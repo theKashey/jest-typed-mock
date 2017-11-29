@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const mode = process.argv[2];
 
 switch (mode) {

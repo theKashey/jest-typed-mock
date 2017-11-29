@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 let executeFlow = (() => {
   var _ref = _asyncToGenerator(function* () {
-    return yield (0, _projectorSpawn2.default)('../node_modules/.bin/tsc', ['--noEmit', fileName], {
+    return yield (0, _projectorSpawn2.default)((0, _findBin2.default)('../node_modules/.bin/tsc'), ['--noEmit', fileName], {
       cwd: __dirname
     });
   });
@@ -32,6 +32,10 @@ var _projectorSpawn = require('projector-spawn');
 
 var _projectorSpawn2 = _interopRequireDefault(_projectorSpawn);
 
+var _findBin = require('./findBin');
+
+var _findBin2 = _interopRequireDefault(_findBin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -47,7 +51,7 @@ const createData = mocks => mocks.map(({ mock, file }) => `
         // ${mock}
         const mock = () => import('${stripPath(_path2.default.relative(baseName, mock))}');
         const real = () => import('${stripPath(_path2.default.relative(baseName, file))}');
-        expectRealImplimentation(real).toNestMock(mock);
+        expectRealImplimentation(real).toNestMock(mock, mock, real);
       })();
    `).join('\n\n');
 
@@ -55,8 +59,10 @@ const TYPES = `
 
 declare type ImportFunction<T> = () => Promise<T>;
 
+type Shape<T> =  {[P in keyof T]?: T[P]}
+
 interface Next<T> {
-  toNestMock(real: ImportFunction<{[P in keyof T]?: T[P]}>): Boolean;
+  toNestMock<M>(real: ImportFunction<M>, test:ImportFunction<Shape<T>>, final: ImportFunction<M>): void;
 };
 
 declare function expectRealImplimentation<T>(mock: ImportFunction<T>): Next<T>
@@ -77,7 +83,7 @@ exports.default = (() => {
       error = e;
     }
 
-    //fs.unlinkSync(fileName);
+    _fs2.default.unlinkSync(fileName);
 
     if (error) {
       throw error;
