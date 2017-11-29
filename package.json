@@ -1,0 +1,46 @@
+{
+  "name": "jest-typed-mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/flow.js",
+  "bin": "cli.js"
+  "scripts": {
+    "test": "npm run test:pick -- '_tests/**/*spec.js'",
+    "test:pick": "BABEL_ENV=cjs mocha --compilers js:babel-core/register",
+    "build": "babel src -d dist",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theKashey/jest-typed-mock.git"
+  },
+  "keywords": [
+    "jest",
+    "mocking",
+    "__mocks__"
+  ],
+  "author": "Anton Korzunov (thekashey@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theKashey/jest-typed-mock/issues"
+  },
+  "homepage": "https://github.com/theKashey/jest-typed-mock#readme",
+  "peerDependencies": {
+    "flow-bin": "^0.50.0",
+    "typescript": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/es6-promise": "^0.0.33",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "flow-bin": "^0.59.0",
+    "jest": "^21.2.1",
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "projector-spawn": "^1.0.1",
+    "scan-directory": "^1.0.0"
+  }
+}
