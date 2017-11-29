@@ -53,5 +53,12 @@ But your tests are still using the old `__mocks__`, and they are still green.
 
 __jest-typed-mock__ just matches real files and mocks.
 
- 
-#Usage
+TS:
+``
+Property 'function2' is missing in type 'typeof "....a"'.
+``
+
+Flow:
+``property `function2` of exports of "/__mocks__/a.js". Property not found in const real = () => import('/a.js');``
+
+As result - you reduce a smell of mocking.
