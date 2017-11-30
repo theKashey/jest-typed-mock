@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 let executeFlow = (() => {
-  var _ref = _asyncToGenerator(function* () {
-    return yield (0, _projectorSpawn2.default)((0, _findBin2.default)('../node_modules/.bin/flow'), [fileName], {
+  var _ref = _asyncToGenerator(function* (fileName) {
+    return yield (0, _projectorSpawn2.default)((0, _findBin2.default)('../node_modules/.bin/flow'), ['check', fileName, '--lib', jestDef], {
       cwd: __dirname
     });
   });
 
-  return function executeFlow() {
+  return function executeFlow(_x) {
     return _ref.apply(this, arguments);
   };
 })();
@@ -40,10 +40,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-const fileName = _path2.default.join(__dirname, 'jest-typed-mock.js.flow');
-const baseName = _path2.default.dirname(fileName);
+const jestDef = _path2.default.join(__dirname, '__jest_flow.js.flow');
 
-const createData = mocks => mocks.map(({ mock, file }) => `
+const createData = (mocks, baseName) => mocks.map(({ mock, file }) => `
       (function () {
         // ${mock}
         const mock = () => import('${_path2.default.relative(baseName, mock)}');
@@ -54,6 +53,7 @@ const createData = mocks => mocks.map(({ mock, file }) => `
 
 const TYPES = `
 // @flow
+
 interface MagicObjectWithRandomMethod {
   __magic__rewiremock_flow: any;
 }
@@ -65,18 +65,20 @@ interface Next<T> {
 };
 
 declare function expectRealImplimentation<T>(mock: ImportFunction<T>): Next<T>
-
 `;
 
 exports.default = (() => {
   var _ref2 = _asyncToGenerator(function* (dir) {
+    const fileName = _path2.default.join(__dirname, 'jest-typed-mock.js.flow');
+    const baseName = _path2.default.dirname(fileName);
+
     const mocks = yield (0, _create2.default)(dir);
     let error = null;
 
-    _fs2.default.writeFileSync(fileName, TYPES + '\n' + createData(mocks));
+    _fs2.default.writeFileSync(fileName, TYPES + '\n' + createData(mocks, baseName));
 
     try {
-      yield executeFlow();
+      yield executeFlow(fileName);
     } catch (e) {
       console.error(e.stderr);
       console.error(e.stdout);
@@ -90,7 +92,7 @@ exports.default = (() => {
     }
   });
 
-  function flowTyped(_x) {
+  function flowTyped(_x2) {
     return _ref2.apply(this, arguments);
   }
 

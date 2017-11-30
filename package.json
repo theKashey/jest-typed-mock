@@ -16,7 +16,8 @@
   },
   "files": [
     "cli.js",
-    "runjs.js"
+    "runjs.js",
+    "dist"
   ],
   "keywords": [
     "jest",

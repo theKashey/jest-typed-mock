@@ -44,8 +44,8 @@ const createData = mocks => mocks.map(({ mock, file }) => `
    `).join('\n\n');
 
 const TYPES = `
-try{require('babel-require');}catch(e){}
 let hasError = false;
+if(typeof jest === 'undefined') { console.log('jest imported');global.jest = require('./__jest_fake.js');}
 
 const matchExports = require('compare-module-exports')('jest-typed-mock');
 
@@ -73,7 +73,6 @@ exports.default = (() => {
   var _ref2 = _asyncToGenerator(function* (dir) {
 
     const fileName = _path2.default.join(__dirname, 'jest-typed-mock-' + +Date.now() + '.js');
-
     const mocks = yield (0, _create2.default)(dir);
     let error = null;
 
