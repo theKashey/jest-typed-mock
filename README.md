@@ -16,10 +16,12 @@ https://facebook.github.io/jest/docs/en/manual-mocks.html#content
    ...
    "jest-typed-mock": "jest-typed-mock flow",       // for Flow 
    "jest-typed-mock": "jest-typed-mock typescript", // for TS
+   "jest-typed-mock": "jest-typed-mock javascript", // for JS
    ...
  }
  ```
-There is no support for common JS, yet.  
+ In some cases (always?) you have to specify babel env.
+
 
 # Type safety
 [Rewiremock](https://github.com/theKashey/rewiremock) can provide a type safety to dependency mocking, but Jest do had it's own
@@ -53,12 +55,24 @@ But your tests are still using the old `__mocks__`, and they are still green.
 
 __jest-typed-mock__ just matches real files and mocks.
 
-TS:
+### TS:
 ``
 Property 'function2' is missing in type 'typeof "....a"'.
 ``
 
-Flow:
+### Flow:
 ``property `function2` of exports of "/__mocks__/a.js". Property not found in const real = () => import('/a.js');``
 
-As result - you reduce a smell of mocking.
+### JS
+ As long there is no `types`, could only test exported names as their types(object, number, function), and function arguments count.
+ Even this is quite helpful.
+ 
+``jest-typed-mock: mocked export "function2" does not exists in a.js``
+ 
+# Result 
+ 
+As result - you reduce a smell of mocking. Mocks becomes less fake, and tests becomes less flake.
+
+# Licence
+ MIT
+

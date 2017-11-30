@@ -1,6 +1,6 @@
 {
   "name": "jest-typed-mock",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/flow.js",
   "bin": "cli.js",
@@ -40,6 +40,7 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "compare-module-exports": "^1.0.0",
     "projector-spawn": "^1.0.1",
     "scan-directory": "^1.0.0"
   }

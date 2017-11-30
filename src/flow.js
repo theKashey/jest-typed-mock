@@ -5,7 +5,6 @@ import spawn from 'projector-spawn';
 import getBin from './findBin';
 
 const fileName = path.join(__dirname, 'jest-typed-mock.js.flow');
-
 const baseName = path.dirname(fileName);
 
 async function executeFlow() {

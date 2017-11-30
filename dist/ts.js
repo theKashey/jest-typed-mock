@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-let executeFlow = (() => {
+let executeTsc = (() => {
   var _ref = _asyncToGenerator(function* () {
     return yield (0, _projectorSpawn2.default)((0, _findBin2.default)('../node_modules/.bin/tsc'), ['--noEmit', fileName], {
       cwd: __dirname
     });
   });
 
-  return function executeFlow() {
+  return function executeTsc() {
     return _ref.apply(this, arguments);
   };
 })();
@@ -76,7 +76,7 @@ exports.default = (() => {
     _fs2.default.writeFileSync(fileName, TYPES + '\n' + createData(mocks));
 
     try {
-      yield executeFlow();
+      yield executeTsc();
     } catch (e) {
       console.error(e.stderr);
       console.error(e.stdout);

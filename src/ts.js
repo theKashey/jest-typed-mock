@@ -8,7 +8,7 @@ const fileName = __dirname + '/jest-typed-mock.ts';
 
 const baseName = path.dirname(fileName);
 
-async function executeFlow() {
+async function executeTsc() {
   return await spawn(getBin('../node_modules/.bin/tsc'), ['--noEmit', fileName], {
     cwd: __dirname
   });
@@ -48,7 +48,7 @@ export default async function flowTyped(dir) {
   fs.writeFileSync(fileName, TYPES + '\n' + createData(mocks));
 
   try {
-    await executeFlow();
+    await executeTsc();
   } catch (e) {
     console.error(e.stderr);
     console.error(e.stdout);
