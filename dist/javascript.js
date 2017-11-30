@@ -44,7 +44,7 @@ const createData = mocks => mocks.map(({ mock, file }) => `
    `).join('\n\n');
 
 const TYPES = `
-
+try{require('babel-require');}catch(e){}
 let hasError = false;
 
 const matchExports = require('compare-module-exports')('jest-typed-mock');
