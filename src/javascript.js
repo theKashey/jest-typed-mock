@@ -23,8 +23,8 @@ const createData = (mocks) =>
     .join('\n\n');
 
 const TYPES = `
-try{require('babel-require');}catch(e){}
 let hasError = false;
+if(typeof jest === 'undefined') { console.log('jest imported');global.jest = require('./__jest_fake.js');}
 
 const matchExports = require('compare-module-exports')('jest-typed-mock');
 
@@ -51,7 +51,6 @@ const END = `if (hasError) {
 export default async function flowTyped(dir) {
 
   const fileName = path.join(__dirname, 'jest-typed-mock-' + (+Date.now()) + '.js');
-
   const mocks = await create(dir);
   let error = null;
 

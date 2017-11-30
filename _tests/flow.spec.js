@@ -10,9 +10,9 @@ describe('flow', () => {
         }
         , () => true
       )
-  ))
+  )).timeout(20000);
 
   it('ok test', () => (
     test(__dirname + '/flow-ok')
-  ))
+  )).timeout(20000);
 });

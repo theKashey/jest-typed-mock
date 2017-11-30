@@ -1,0 +1,1 @@
+require('./dist/javascript').default(process.cwd());

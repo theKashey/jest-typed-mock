@@ -10,9 +10,9 @@ describe('typescript', () => {
         }
         , () => true
       )
-  ))
+  )).timeout(20000);
 
   it('ok test', () => (
     test(__dirname + '/ts-ok')
-  ))
+  )).timeout(20000);
 });

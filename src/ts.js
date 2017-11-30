@@ -4,11 +4,7 @@ import create from './create';
 import spawn from 'projector-spawn';
 import getBin from './findBin';
 
-const fileName = __dirname + '/jest-typed-mock.ts';
-
-const baseName = path.dirname(fileName);
-
-async function executeTsc() {
+async function executeTsc(fileName) {
   return await spawn(getBin('../node_modules/.bin/tsc'), ['--noEmit', fileName], {
     cwd: __dirname
   });
@@ -16,7 +12,7 @@ async function executeTsc() {
 
 const stripPath = (file) => path.join(path.dirname(file), path.basename(file, '.ts'));
 
-const createData = (mocks) =>
+const createData = (mocks, baseName) =>
   mocks
     .map(({mock, file}) => `
       (function () {
@@ -29,7 +25,7 @@ const createData = (mocks) =>
     .join('\n\n');
 
 const TYPES = `
-
+/// <reference path="__jest_ts.d.ts"/>
 declare type ImportFunction<T> = () => Promise<T>;
 
 type Shape<T> =  {[P in keyof T]?: T[P]}
@@ -42,20 +38,22 @@ declare function expectRealImplimentation<T>(mock: ImportFunction<T>): Next<T>
 `
 
 export default async function flowTyped(dir) {
+  const fileName = __dirname + '/jest-typed-mock-' + (+Date.now()) + '.ts';
+  const baseName = path.dirname(fileName);
   const mocks = await create(dir);
   let error = null;
 
-  fs.writeFileSync(fileName, TYPES + '\n' + createData(mocks));
+  fs.writeFileSync(fileName, TYPES + '\n' + createData(mocks, baseName));
 
   try {
-    await executeTsc();
+    await executeTsc(fileName);
   } catch (e) {
     console.error(e.stderr);
     console.error(e.stdout);
     error = e;
   }
 
-  fs.unlinkSync(fileName);
+   fs.unlinkSync(fileName);
 
   if (error) {
     throw error;

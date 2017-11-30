@@ -14,6 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/theKashey/jest-typed-mock.git"
   },
+  "files": [
+    "cli.js",
+    "runjs.js"
+  ],
   "keywords": [
     "jest",
     "mocking",

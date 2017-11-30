@@ -1,0 +1,39 @@
+declare type __fake_nop = (...rest: any[]) => any;
+declare type __fake_fn = (...rest: any[]) => __fake_nop;
+declare type __fake_require = __fake_nop;
+
+declare var jest: {
+    addMatchers: __fake_nop,
+    autoMockOff: __fake_nop,
+    autoMockOn: __fake_nop,
+    clearAllMocks: __fake_nop,
+    clearAllTimers: __fake_nop,
+    deepUnmock: __fake_nop,
+    disableAutomock: __fake_nop,
+    doMock: __fake_nop,
+    dontMock: __fake_nop,
+    enableAutomock: __fake_nop,
+    fn: __fake_fn,
+    genMockFn: __fake_fn,
+    genMockFromModule: __fake_nop,
+    genMockFunction: __fake_fn,
+    isMockFunction: __fake_nop,
+    mock: __fake_nop,
+    requireActual: __fake_require,
+    requireMock: __fake_require,
+    resetAllMocks: __fake_nop,
+    resetModuleRegistry: __fake_nop,
+    resetModules: __fake_nop,
+    restoreAllMocks: __fake_nop,
+    runAllImmediates: __fake_nop,
+    runAllTicks: __fake_nop,
+    runAllTimers: __fake_nop,
+    runOnlyPendingTimers: __fake_nop,
+    runTimersToTime: __fake_nop,
+    setMock: __fake_nop,
+    setTimeout: __fake_nop,
+    spyOn: __fake_nop,
+    unmock: __fake_nop,
+    useFakeTimers: __fake_nop,
+    useRealTimers: __fake_nop
+};

@@ -4,16 +4,15 @@ import create from './create';
 import spawn from 'projector-spawn';
 import getBin from './findBin';
 
-const fileName = path.join(__dirname, 'jest-typed-mock.js.flow');
-const baseName = path.dirname(fileName);
+const jestDef = path.join(__dirname,'__jest_flow.js.flow');
 
-async function executeFlow() {
-  return await spawn(getBin('../node_modules/.bin/flow'), [fileName], {
+async function executeFlow(fileName) {
+  return await spawn(getBin('../node_modules/.bin/flow'), ['check', fileName, '--lib', jestDef], {
     cwd: __dirname
   });
 }
 
-const createData = (mocks) =>
+const createData = (mocks, baseName) =>
   mocks
     .map(({mock, file}) => `
       (function () {
@@ -27,6 +26,7 @@ const createData = (mocks) =>
 
 const TYPES = `
 // @flow
+
 interface MagicObjectWithRandomMethod {
   __magic__rewiremock_flow: any;
 }
@@ -38,17 +38,19 @@ interface Next<T> {
 };
 
 declare function expectRealImplimentation<T>(mock: ImportFunction<T>): Next<T>
-
 `
 
 export default async function flowTyped(dir) {
+  const fileName = path.join(__dirname, 'jest-typed-mock.js.flow');
+  const baseName = path.dirname(fileName);
+
   const mocks = await create(dir);
   let error = null;
 
-  fs.writeFileSync(fileName, TYPES + '\n' + createData(mocks));
+  fs.writeFileSync(fileName, TYPES + '\n' + createData(mocks, baseName));
 
   try {
-    await executeFlow();
+    await executeFlow(fileName);
   } catch (e) {
     console.error(e.stderr);
     console.error(e.stdout);
