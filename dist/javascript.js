@@ -47,6 +47,8 @@ const TYPES = `
 
 let hasError = false;
 
+const matchExports = require('compare-module-exports')('jest-typed-mock');
+
 function getExports(loader, name) {
   try {
     return loader();
@@ -55,49 +57,10 @@ function getExports(loader, name) {
   }
 }
 
-function testFunction(a, b, file, name) {
-  if (a.length != b.length) {
-    console.error(name + ': in' + file + '\\n\\t\\t' + a.toString() + '\\n\\tdoes not match\\n\\t\\t'+b.toString());
-    throw new Error('jest-typed-mock: function argument mismatch: ' + file + ': ' + name);
-  }
-}
-
-function test(a, b, file, name) {
-  if (!b) {
-    throw new Error('jest-typed-mock: mocked export "' + name + '" does not exists in ' + file);
-  }
-  const typeOfA = typeof a;
-  const typeOfB = typeof b;
-  if (typeOfA != typeOfB) {
-    throw new Error('jest-typed-mock: exported type mismatch: ' + file + ':' + name + '. Expected ' + typeOfB + ', got ' + typeOfB + '');
-  }
-  if (typeOfA === 'function') {
-    return testFunction(a, b, file, name);
-  }
-}
-
-function matchExports(realExports, mockedExports, realFile, mockFile) {
-  if (typeof mockedExports !== typeof realExports) {
-    throw new Error('jest-typed-mock: mock ' + mockFile + ' export does not match real file');
-  }
-  if (typeof mockedExports === 'function') {
-    test(mockedExports, realExports, realFile, 'exports');
-  } else if (typeof mockedExports === 'object') {
-    Object.keys(mockedExports).forEach(key => {
-      try {
-        test(mockedExports[key], realExports[key], realFile, key)
-      } catch (e) {
-        console.error(e.message,'\\n');
-        hasError = true;
-      }
-    });
-  }
-}
-
 function check(real, mock, realFile, mockFile) {
   const realExports = getExports(real, realFile);
   const mockedExports = getExports(mock, mockFile);
-  matchExports(realExports, mockedExports, realFile, mockFile);
+  hasError = matchExports(realExports, mockedExports, realFile, mockFile);
 }
 
 `;
