@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-const createData = (mocks, options) => mocks.map(({ mock, file }) => `
+const createData = (mocks, options = {}) => mocks.map(({ mock, file }) => `
       (function () {
         // ${mock}
         const realFile = '${file}';
@@ -76,7 +76,7 @@ exports.default = (() => {
     const mocks = yield (0, _create2.default)(dir);
     let error = null;
 
-    _fs2.default.writeFileSync(fileName, TYPES + '\n' + createData(mocks) + END);
+    _fs2.default.writeFileSync(fileName, TYPES + '\n' + createData(mocks, options) + END);
 
     try {
       yield executeNode(fileName);

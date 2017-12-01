@@ -24,7 +24,7 @@ const createData = (mocks, options = {}) =>
 
 const TYPES = `
 let hasError = false;
-if(typeof jest === 'undefined') { console.log('jest imported');global.jest = require('./__jest_fake.js');}
+if(typeof jest === 'undefined') { global.jest = require('./__jest_fake.js');}
 
 const matchExports = require('compare-module-exports')('jest-typed-mock');
 
