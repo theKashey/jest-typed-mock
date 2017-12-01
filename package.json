@@ -45,7 +45,8 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "compare-module-exports": "^1.0.0",
+    "babel-register": "^6.26.0",
+    "compare-module-exports": "^1.0.3",
     "projector-spawn": "^1.0.1",
     "scan-directory": "^1.0.0"
   }

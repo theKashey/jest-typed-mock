@@ -17,6 +17,7 @@ https://facebook.github.io/jest/docs/en/manual-mocks.html#content
    "jest-typed-mock": "jest-typed-mock flow",       // for Flow 
    "jest-typed-mock": "jest-typed-mock typescript", // for TS
    "jest-typed-mock": "jest-typed-mock javascript", // for JS
+   "jest-typed-mock": "jest-typed-mock exports",    // only check names
    ...
  }
  ```
@@ -68,6 +69,13 @@ Property 'function2' is missing in type 'typeof "....a"'.
  Even this is quite helpful.
  
 ``jest-typed-mock: mocked export "function2" does not exists in a.js``
+ jest-typed-mock will also try to check function agains function, at least argument count, which can break a lot of things.
+ To bypass this checking use
+``jest-typed-mock exports``, or specify noFunctionCompare in API options
+```js
+require('jest-typed-mock/runjs')(__dirname , {noFunctionCompare: true})
+``` 
+ 
  
 # Result 
  

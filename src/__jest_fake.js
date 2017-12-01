@@ -1,5 +1,5 @@
-const nop = () => {};
-const fn = () => () => {};
+const nop = (_could_be_any_) => {};
+const fn = (_could_be_any_) => (_could_be_any_) => {};
 
 const jestObject = {
   addMatchers: nop,

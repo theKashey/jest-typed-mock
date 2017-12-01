@@ -6,7 +6,7 @@ async function executeNode(fileName) {
   return require(fileName);
 }
 
-const createData = (mocks) =>
+const createData = (mocks, options = {}) =>
   mocks
     .map(({mock, file}) => `
       (function () {
@@ -17,7 +17,7 @@ const createData = (mocks) =>
         const mockFileName = '${path.relative(process.cwd(), mock)}';
         const mock = () => require(mockFile);
         const real = () => require(realFile);
-        check(real, mock, realFileName, mockFileName);
+        check(real, mock, realFileName, mockFileName, ${JSON.stringify(options)});
       })();
    `)
     .join('\n\n');
@@ -36,10 +36,10 @@ function getExports(loader, name) {
   }
 }
 
-function check(real, mock, realFile, mockFile) {
+function check(real, mock, realFile, mockFile, options) {
   const realExports = getExports(real, realFile);
   const mockedExports = getExports(mock, mockFile);
-  hasError = matchExports(realExports, mockedExports, realFile, mockFile);
+  hasError = matchExports(realExports, mockedExports, realFile, mockFile, options);
 }
 
 `;
@@ -48,7 +48,7 @@ const END = `if (hasError) {
   throw 'jest-typed-mock: type check failed'
 }`;
 
-export default async function flowTyped(dir) {
+export default async function flowTyped(dir, options = {}) {
 
   const fileName = path.join(__dirname, 'jest-typed-mock-' + (+Date.now()) + '.js');
   const mocks = await create(dir);
@@ -57,7 +57,7 @@ export default async function flowTyped(dir) {
   fs.writeFileSync(fileName,
     TYPES
     + '\n'
-    + createData(mocks)
+    + createData(mocks, options)
     + END);
 
   try {

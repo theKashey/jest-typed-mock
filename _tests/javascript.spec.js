@@ -10,9 +10,18 @@ describe('javascript', () => {
         }
         , () => true
       )
-  ))
+  ));
+
+  it('not-ok test', () => (
+    test(__dirname + '/js-ok')
+      .then(() => {
+          throw new Error('should not be called')
+        }
+        , () => true
+      )
+  ));
 
   it('ok test', () => (
-    test(__dirname + '/js-ok')
-  ))
+    test(__dirname + '/js-ok', {noFunctionCompare: true})
+  ));
 });

@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-const createData = mocks => mocks.map(({ mock, file }) => `
+const createData = (mocks, options) => mocks.map(({ mock, file }) => `
       (function () {
         // ${mock}
         const realFile = '${file}';
@@ -39,7 +39,7 @@ const createData = mocks => mocks.map(({ mock, file }) => `
         const mockFileName = '${_path2.default.relative(process.cwd(), mock)}';
         const mock = () => require(mockFile);
         const real = () => require(realFile);
-        check(real, mock, realFileName, mockFileName);
+        check(real, mock, realFileName, mockFileName, ${JSON.stringify(options)});
       })();
    `).join('\n\n');
 
@@ -57,10 +57,10 @@ function getExports(loader, name) {
   }
 }
 
-function check(real, mock, realFile, mockFile) {
+function check(real, mock, realFile, mockFile, options) {
   const realExports = getExports(real, realFile);
   const mockedExports = getExports(mock, mockFile);
-  hasError = matchExports(realExports, mockedExports, realFile, mockFile);
+  hasError = matchExports(realExports, mockedExports, realFile, mockFile, options);
 }
 
 `;
@@ -70,7 +70,7 @@ const END = `if (hasError) {
 }`;
 
 exports.default = (() => {
-  var _ref2 = _asyncToGenerator(function* (dir) {
+  var _ref2 = _asyncToGenerator(function* (dir, options = {}) {
 
     const fileName = _path2.default.join(__dirname, 'jest-typed-mock-' + +Date.now() + '.js');
     const mocks = yield (0, _create2.default)(dir);
