@@ -3,7 +3,8 @@
 
 [![NPM](https://nodei.co/npm/jest-typed-mock.png?downloads=true&stars=true)](https://nodei.co/npm/jest-typed-mock/)
 
-jest-typed-mock brings type checking to the wild `__mocks__` of Jest.
+jest-typed-mock brings type checking to the wild `__mocks__` of Jest. Helping you maintain the correct mocks, matching the real files, they are going to mock.
+This is like eslint, but for mocks.
 
 ``
 Manual mocks are defined by writing a module in a __mocks__/ subdirectory immediately adjacent to the module. For example, to mock a module called user in the models directory, create a file called user.js and put it in the models/__mocks__ directory. ``
