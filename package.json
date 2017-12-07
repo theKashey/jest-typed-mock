@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "babel-register": "^6.26.0",
-    "compare-module-exports": "^1.0.3",
+    "compare-module-exports": "^1.1.0",
     "projector-spawn": "^1.0.1",
     "scan-directory": "^1.0.0"
   }

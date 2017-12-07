@@ -24,4 +24,8 @@ describe('javascript', () => {
   it('ok test', () => (
     test(__dirname + '/js-ok', {noFunctionCompare: true})
   ));
+
+  it.only('default test', () => (
+    test(__dirname + '/default-js')
+  ));
 });

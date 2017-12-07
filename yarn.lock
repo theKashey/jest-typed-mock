@@ -900,9 +900,9 @@ commander@^2.11.0:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
 
-compare-module-exports@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/compare-module-exports/-/compare-module-exports-1.0.3.tgz#bdeae218b0c8374f0285d92d503413f61d5ee2db"
+compare-module-exports@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/compare-module-exports/-/compare-module-exports-1.1.0.tgz#4da8728fcc49e6ab5a079e7648d52d7092ac62ca"
 
 concat-map@0.0.1:
   version "0.0.1"
