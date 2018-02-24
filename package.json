@@ -1,6 +1,6 @@
 {
   "name": "jest-typed-mock",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Get your __mocks__ typed!",
   "main": "dist/flow.js",
   "bin": "cli.js",
