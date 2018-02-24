@@ -1,7 +1,7 @@
 {
   "name": "jest-typed-mock",
   "version": "1.4.2",
-  "description": "",
+  "description": "Get your __mocks__ typed!",
   "main": "dist/flow.js",
   "bin": "cli.js",
   "scripts": {
@@ -22,6 +22,8 @@
   "keywords": [
     "jest",
     "mocking",
+    "typescript",
+    "flow",
     "__mocks__"
   ],
   "author": "Anton Korzunov (thekashey@gmail.com)",
