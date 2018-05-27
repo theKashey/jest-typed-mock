@@ -1,7 +1,7 @@
 # jest-typed-mock
 ## Make unit tests great again!
 
-[![NPM](https://nodei.co/npm/jest-typed-mock.png?downloads=true&stars=true)](https://nodei.co/npm/jest-typed-mock/)
+[![NPM](https://nodei.co/npm/jest-typed-mock.png?downloads=true&stars=true)](https://nodei.co/npm/jest-typed-mock/) [![Greenkeeper badge](https://badges.greenkeeper.io/theKashey/jest-typed-mock.svg)](https://greenkeeper.io/)
 
 jest-typed-mock brings type checking to the wild `__mocks__` of Jest. Helping you maintain the correct mocks, matching the real files, they are going to mock.
 This is like eslint, but for mocks.
